@@ -71,7 +71,7 @@ const AdminRoute = () => {
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" v-if="storeUser.user.type != 'C'" @click="AdminRoute">Admin</a>
           <a class="dropdown-item" @click="profileRoute">Profile</a>
-          <a class="dropdown-item" @click="OrderHistoryRoute">Order History</a>
+          <a class="dropdown-item" v-if="storeUser.user.type == 'C'" @click="OrderHistoryRoute">Order History</a>
           <a class="dropdown-item" @click="storeUser.logout">Log Out</a>
         </div>
         <v-badge color="green" :content="storeCart.getCartCount">

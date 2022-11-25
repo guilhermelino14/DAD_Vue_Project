@@ -42,7 +42,7 @@ const verifyIfUserIsMenager = (to, from, next) => {
   });
 }
 const verifyIfUserIsChefOrDeliver = (to, from, next) => {
-  
+
   const storeUser = useUserStore();
   const config = {
     headers: {
@@ -58,105 +58,122 @@ const verifyIfUserIsChefOrDeliver = (to, from, next) => {
   });
 }
 
-  const userLogged = (to, from, next) => {
-    const storeUser = useUserStore();
-    if (!storeUser.islogged) next();
-    else next('/');
+const userLogged = (to, from, next) => {
+  const storeUser = useUserStore();
+  if (!storeUser.islogged) next();
+  else next('/');
+}
+
+const userNotLogged = (to, from, next) => {
+  const storeUser = useUserStore();
+  if (storeUser.islogged) next();
+  else next('/');
+}
+const isLoggedAndItsACostumer = (to, from, next) => {
+  const storeUser = useUserStore();
+  if(!storeUser.islogged){
+    next('/login');
   }
-
-  const userNotLogged = (to, from, next) => {
-    const storeUser = useUserStore();
-    if (storeUser.islogged) next();
+  const config = {
+    headers: {
+      'Content-Type': "application/json",
+      Authorization: "Bearer " + storeUser.token,
+    },
+  };
+  axios.get(import.meta.env.VITE_API_URL + '/userType', config).then((res) => {
+    console.log(res.data.type);
+    if (res.data.type == 'C') next();
     else next('/');
-  }
+  });
+}
 
-  const cartEmpty = (to, from, next) => {
-    const storeCart = cartStore();
-    if (storeCart.getCartCount != 0) next()
-    else next('/');
-  }
+const cartEmpty = (to, from, next) => {
+  const storeCart = cartStore();
+  if (storeCart.getCartCount != 0) next()
+  else next('/');
+}
 
 
-  const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-      {
-        path: '/',
-        name: 'menu',
-        component: () => import('../views/MenuView.vue')
-      },
-      {
-        path: '/login',
-        name: 'login',
-        component: Login,
-        beforeEnter: userLogged,
-      },
-      {
-        path: '/register',
-        name: 'register',
-        component: Register,
-        beforeEnter: userLogged,
-      },
-      {
-        path: '/cart',
-        name: 'cart',
-        component: Cart,
-      },
-      {
-        path: '/cart-payment',
-        name: 'cartPayment',
-        component: CartPayment,
-        beforeEnter: cartEmpty,
-      },
-      {
-        path: '/profile',
-        name: 'profile',
-        component: Profile,
-        beforeEnter: userNotLogged,
-      },
-      {
-        path: '/order-history',
-        name: 'order-history',
-        component: UserOrders,
-        beforeEnter: userNotLogged,
-      },
-      {
-        path: '/admin',
-        name: 'admin',
-        component: AdminHome,
-        beforeEnter: verifyIfUserIsChefOrDeliver,
-        meta: {
-          hideNavbar: true,
-        }
-      },
-      {
-        path: '/admin/users',
-        name: 'adminUsers',
-        component: AdminUsers,
-        beforeEnter: verifyIfUserIsMenager,
-        meta: {
-          hideNavbar: true,
-        }
-      },
-      {
-        path: '/admin/products',
-        name: 'adminProducts',
-        component: AdminProducts,
-        beforeEnter: verifyIfUserIsMenager,
-        meta: {
-          hideNavbar: true,
-        }
-      },
-      {
-        path: '/admin/orders',
-        name: 'adminOrders',
-        component: AdminOrders,
-        beforeEnter: verifyIfUserIsMenager,
-        meta: {
-          hideNavbar: true,
-        }
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'menu',
+      component: () => import('../views/MenuView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      beforeEnter: userLogged,
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      beforeEnter: userLogged,
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: Cart,
+    },
+    {
+      path: '/cart-payment',
+      name: 'cartPayment',
+      component: CartPayment,
+      beforeEnter: cartEmpty,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
+      beforeEnter: userNotLogged,
+    },
+    {
+      path: '/order-history',
+      name: 'order-history',
+      component: UserOrders,
+      beforeEnter: isLoggedAndItsACostumer,
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminHome,
+      beforeEnter: verifyIfUserIsChefOrDeliver,
+      meta: {
+        hideNavbar: true,
       }
-    ]
-  })
+    },
+    {
+      path: '/admin/users',
+      name: 'adminUsers',
+      component: AdminUsers,
+      beforeEnter: verifyIfUserIsMenager,
+      meta: {
+        hideNavbar: true,
+      }
+    },
+    {
+      path: '/admin/products',
+      name: 'adminProducts',
+      component: AdminProducts,
+      beforeEnter: verifyIfUserIsMenager,
+      meta: {
+        hideNavbar: true,
+      }
+    },
+    {
+      path: '/admin/orders',
+      name: 'adminOrders',
+      component: AdminOrders,
+      beforeEnter: verifyIfUserIsMenager,
+      meta: {
+        hideNavbar: true,
+      }
+    }
+  ]
+})
 
-  export default router
+export default router
