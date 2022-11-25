@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineEmits } from 'vue'
 import axios from 'axios';
 import { useUserStore } from '@/stores/user'
 const userStore = useUserStore();
@@ -7,6 +7,9 @@ const userStore = useUserStore();
 let page = ref(1);
 let lastPage = ref(9);
 let orders = ref([]);
+
+//const emit = defineEmits(['createOrderChange', 'editOrderChange', 'editingOrderChange'])
+const emit = defineEmits(['editOrderChange', 'editingOrderChange'])
 
 onMounted(() => {
     orderList();
@@ -21,11 +24,35 @@ const orderList = () => {
         .catch(error => {
             console.log(error);
         });
+    };
+
+const changePage = () => {
+    orderList();
 };
+
+/*const createOrder = () => {
+    emit('createOrderChange', true)
+}*/
+
+const editOrder = (order) => {
+    emit('editOrderChange', true)
+    emit('editingOrderChange', order)
+    }
+
+const deleteOrder = (orderID) => {
+    axios.delete(import.meta.env.VITE_API_URL + '/orders/' + orderID)
+        .then(response => {
+            orderList();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
 </script>
 <template>
     <v-col class="text-right">
-        <v-btn color="primary">Add Order</v-btn>
+        <!--<v-btn color="primary" @click="createOrder">Add Order</v-btn>-->
     </v-col>
     <v-table>
         <thead>
@@ -59,14 +86,14 @@ const orderList = () => {
                 <td>{{ order.payment_type }}</td>
                 <td>{{ order.payment_reference }}</td>
                 <td>
-                    <v-btn icon="mdi-pencil" color="info" size="x-small" ></v-btn>
-                    <v-btn icon="mdi-delete" color="error" size="x-small"></v-btn>
+                    <v-btn icon="mdi-pencil" color="info" size="x-small" @click="editOrder(order)"></v-btn>
+                    <v-btn icon="mdi-delete" color="error" size="x-small" @click="deleteOrder(order.id)"></v-btn>
                 </td>
 
             </tr>
         </tbody>
     </v-table>
     <div class="text-center">
-        <v-pagination v-model="page" :length="lastPage" @click="orderList"></v-pagination>
+        <v-pagination v-model="page" :length="lastPage" @click="changePage"></v-pagination>
     </div>
 </template>

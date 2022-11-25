@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\admin",
+    "\\src\\components\\admin\\order",
+    "\\src\\components\\admin\\user",
+    "\\src\\views",
+    "\\src\\views\\admin"
+  ],
+  "SelectedNode": "\\src\\components\\admin\\order\\OrderEdit.vue",
+  "PreviewInSolutionExplorer": false
+}
