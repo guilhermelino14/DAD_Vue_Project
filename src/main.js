@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { io } from "socket.io-client"
 import '@mdi/font/css/materialdesignicons.css'
 
 import App from './App.vue'
@@ -25,6 +26,7 @@ const vuetify = createVuetify({
 
 const app = createApp(App)
 
+app.provide('socket', io("http://localhost:8080"))
 app.use(createPinia())
 app.use(router)
 app.use(vuetify)

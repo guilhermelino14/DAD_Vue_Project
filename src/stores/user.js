@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 
-
 export const useUserStore = defineStore({
     id: 'user',
     state: () => ({
@@ -21,6 +20,7 @@ export const useUserStore = defineStore({
             this.user = RequestUser
             this.token = RequestUser.token
             this.islogged = true
+            
         },
         logout() {
             const config = {

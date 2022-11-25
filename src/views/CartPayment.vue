@@ -1,10 +1,11 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { useUserStore } from '../stores/user';
 import { cartStore } from '../stores/cart';
 import router from '../router';
 
+const socket = inject("socket")
 const storeUser = useUserStore();
 const storeCart = cartStore();
 
@@ -42,6 +43,7 @@ const createOrder = () => {
         .then(response => {
             storeCart.clearCart()
             router.push('/order-history')
+            socket.emit('orderCreated', response)
         })
         .catch(error => {
             console.log(error);
