@@ -7,6 +7,8 @@ const storeUser = useUserStore();
 
 const customer = ref([]);
 
+const api = import.meta.env.VITE_API_URL
+
 onMounted( () => {
   axios.get(import.meta.env.VITE_API_URL+'/customer/'+storeUser.user.id)
   .then(response => {
@@ -24,7 +26,7 @@ onMounted( () => {
               <div class="col-lg-4">
                 <div class="card card-profile mb-4">
                   <div class="card-header" style="background-image: url(https://therichpost.com/wp-content/uploads/2021/05/bootstrap5-carousel-slider-img1.jpg);"> </div>
-                  <div class="card-body text-center"><img class="card-profile-img" :src="'http://localhost:80/api/user/photo/' + storeUser.user.photo_url " alt="Jassa Rich">
+                  <div class="card-body text-center"><img class="card-profile-img" :src="api + '/user/photo/' + storeUser.user.photo_url " alt="Jassa Rich">
                     <h3 class="mb-3">{{storeUser.user.name}}</h3>
                     <p class="mb-4" v-if="!customer == ''">Points: {{customer.points ? customer.points : 0}}</p>
                   </div>

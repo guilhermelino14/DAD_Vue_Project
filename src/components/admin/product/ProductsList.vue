@@ -5,6 +5,8 @@ import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore();
 
+const api = import.meta.env.VITE_API_URL
+
 const products = ref([]);
 let page = ref(1);
 let maxPage = ref(9);
@@ -84,7 +86,7 @@ const deleteProduct = (id) => {
         </thead>
         <tbody>
             <tr v-for="product in products" :key="product">
-                <td><v-img :src="'http://localhost:80/api/product/photo/' + product.photo_url "></v-img></td>
+                <td><v-img :src="api + '/product/photo/' + product.photo_url "></v-img></td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.type }}</td>
                 <td>{{ product.description }}</td>

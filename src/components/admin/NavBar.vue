@@ -5,7 +5,9 @@ import { RouterView } from 'vue-router'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-const router = useRouter();
+const router = useRouter()
+
+const api = import.meta.env.VITE_API_URL
 
 const storeUser = useUserStore();
 const drawer = ref(false)
@@ -58,7 +60,7 @@ onMounted(() => {
                 <template v-slot:activator="{ props }">
                     <v-btn color="primary" v-bind="props" icon>
                         <v-avatar>
-                            <v-img :src="'http://localhost:80/api/user/photo/' + storeUser.user.photo_url" alt="John">
+                            <v-img :src="api + '/user/photo/' + storeUser.user.photo_url" alt="John">
                             </v-img>
                         </v-avatar>
                     </v-btn>

@@ -4,6 +4,8 @@ import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { cartStore } from '@/stores/cart'
 
+const api = import.meta.env.VITE_API_URL
+
 const storeCart = cartStore();
 
 const storeUser = useUserStore();
@@ -63,7 +65,7 @@ const AdminRoute = () => {
       <div class="p-2 dropleft">
         <v-btn icon id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <v-avatar>
-            <v-img :src="'http://localhost:80/api/user/photo/' + storeUser.user.photo_url" alt="John"></v-img>
+            <v-img :src="api + '/user/photo/' + storeUser.user.photo_url" alt="John"></v-img>
           </v-avatar>
         </v-btn>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
