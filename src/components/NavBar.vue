@@ -58,7 +58,7 @@ const logout = () => {
 
         </li>
         <li class="nav-item">
-          <!-- <RouterLink class="nav-link" to="/menu">Menu</RouterLink> -->
+          <RouterLink class="nav-link" to="/publicBoard">Public Board</RouterLink>
         </li>
       </ul>
     </div>

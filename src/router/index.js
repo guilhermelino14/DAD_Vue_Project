@@ -10,6 +10,7 @@ import AdminOrders from '@/views/admin/Orders.vue'
 import UserOrders from '@/views/UserOrders.vue'
 import Cart from '@/views/Cart.vue'
 import CartPayment from '@/views/CartPayment.vue'
+import PublicBoard from '@/views/PublicBoardView.vue'
 
 import { useUserStore } from '@/stores/user.js';
 import { cartStore } from '@/stores/cart.js';
@@ -101,6 +102,11 @@ const router = createRouter({
       path: '/',
       name: 'menu',
       component: () => import('../views/MenuView.vue')
+    },
+    {
+      path: '/publicBoard',
+      name: 'publicBoard',
+      component: PublicBoard
     },
     {
       path: '/login',
