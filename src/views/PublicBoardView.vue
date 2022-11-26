@@ -9,7 +9,7 @@ onMounted(() => {
 });
 
 const orderList = () => {
-    axios.get(import.meta.env.VITE_API_URL + '/ordersPreparingOrReady')
+    axios.get(import.meta.env.VITE_API_URL + '/getOrdersToPublicBoard')
         .then(response => {
             orders.value = response.data.data;
         })
@@ -17,6 +17,8 @@ const orderList = () => {
             console.log(error);
         });
 };
+
+
 </script>
 <template>
     <v-app>
@@ -54,9 +56,14 @@ const orderList = () => {
     margin: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-    cursor: pointer;
     position: relative;
     text-align: center;
+}
+/* create an animation for when the item is removed */
+.item-leave-active {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 0.3s ease;
 }
 
 .board{
