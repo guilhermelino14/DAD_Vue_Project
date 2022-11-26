@@ -42,8 +42,13 @@ const createOrder = () => {
     })
         .then(response => {
             storeCart.clearCart()
-            router.push('/order-history')
             socket.emit('orderCreated', response)
+            if(user_id.value != 0){
+                router.push('/order-history')
+                
+            }else{
+                router.push('/')
+            }
         })
         .catch(error => {
             console.log(error);

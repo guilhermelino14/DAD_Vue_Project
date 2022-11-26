@@ -39,12 +39,16 @@ const orderUpdate = (thisOrder) => {
                 type: 'success'
             }
             order.value = response.data.order;
-            console.log(order.value)
-            if(order.value.status == 'Ready'){
-                axios.get(api.value + '/costumerGetUser/'+ order.value.customer_id).then((res) => {
-                    socket.emit('orderReady', {order: order.value, userId: res.data.user.id})
-                })
-                
+            if (order.value.status == 'Ready') {
+                if (order.value.customer_id != null) {
+                    axios.get(api.value + '/costumerGetUser/' + order.value.customer_id).then((res) => {
+                        socket.emit('orderReady', { order: order.value, userId: res.data.user.id })
+                    })
+                }else{
+                    socket.emit('orderReady', { order: order.value, userId: null })
+                }
+
+
             }
         })
         .catch(error => {
@@ -142,7 +146,8 @@ const reloadOrder = () => {
         <v-card-text>
             <v-row>
                 <v-col md="3">
-                    <v-img :src="api + '/products/photo/' + order_item.product.photo_url" class="img_size_photo"></v-img>
+                    <v-img :src="api + '/products/photo/' + order_item.product.photo_url" class="img_size_photo">
+                    </v-img>
                 </v-col>
                 <v-col md="9">
                     <v-card-title class="mb-5">{{ order_item.product.name }} <span class="box"

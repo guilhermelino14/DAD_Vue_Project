@@ -50,7 +50,6 @@ const logout = () => {
       aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
     <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
