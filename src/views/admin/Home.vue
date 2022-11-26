@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import Order_MenuList from '@/components/admin/order_menu/order_menuList.vue';
 import Order_MenuView from '@/components/admin/order_menu/order_menuView.vue';
 
+
 const viewOrder = ref(false);
 const orderBeingViewed = ref({})
 
@@ -13,6 +14,7 @@ const viewOrderChange = (value) => {
 const orderWillBeViewed = (order) => {
     orderBeingViewed.value = order
 }
+
 
 </script>
     

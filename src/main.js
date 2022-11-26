@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { io } from "socket.io-client"
 import '@mdi/font/css/materialdesignicons.css'
+import Toaster from "@meforma/vue-toaster";
 
 import App from './App.vue'
 import router from './router'
@@ -23,8 +25,20 @@ const vuetify = createVuetify({
   },
 })
 
+
 const app = createApp(App)
 
+app.use(Toaster, {
+  // Global/Default options
+  position: 'top',
+  timeout: 3000,
+  pauseOnHover: true
+})
+
+app.provide('toast', app.config.globalProperties.$toast);
+
+
+app.provide('socket', io("http://localhost:8080"))
 app.use(createPinia())
 app.use(router)
 app.use(vuetify)

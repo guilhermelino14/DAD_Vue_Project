@@ -1,11 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '../stores/user'
 import { useRouter } from 'vue-router'
 
 const router = useRouter();
 const storeUser = useUserStore();
+
+const socket = inject("socket")
 
 let user = ref({
         email:'',
@@ -22,6 +24,7 @@ const login = async () => {
     .then(response => {
         storeUser.login(response.data.user)
         router.push('/')
+        socket.emit('loggedIn', response.data.user)
     })
     .catch(e => {
         error.value = e.response.data.error
