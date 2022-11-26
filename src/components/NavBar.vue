@@ -37,6 +37,11 @@ const AdminRoute = () => {
   router.push('/admin');
 }
 
+const logout = () => {
+  storeUser.logout();
+  router.push('/');
+}
+
 
 </script>
 <template>
@@ -72,7 +77,7 @@ const AdminRoute = () => {
           <a class="dropdown-item" v-if="storeUser.user.type != 'C'" @click="AdminRoute">Admin</a>
           <a class="dropdown-item" @click="profileRoute">Profile</a>
           <a class="dropdown-item" v-if="storeUser.user.type == 'C'" @click="OrderHistoryRoute">Order History</a>
-          <a class="dropdown-item" @click="storeUser.logout">Log Out</a>
+          <a class="dropdown-item" @click="logout">Log Out</a>
         </div>
         <v-badge color="green" :content="storeCart.getCartCount">
           <v-btn icon class="ml-2" @click="cartRoute">
