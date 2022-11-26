@@ -16,9 +16,8 @@ onMounted(() => {
 })
 
 socket.on('orderCreated', (order) => {
-    console.log(order)
     toast.success(`A new order was created (#${order.id} with ticket number : ${order.ticket_number})`)
-    console.log(' Order Created ')
+    // console.log(' Order Created ')
 })
 </script>
 
