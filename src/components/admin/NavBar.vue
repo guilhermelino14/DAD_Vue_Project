@@ -35,6 +35,7 @@ onMounted(() => {
             if (res.data.type == 'EC' || res.data.type == 'ED') {
                 items.value[1].show = false
                 items.value[2].show = false
+                items.value[3].show = false
             }
         })
 

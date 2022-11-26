@@ -19,6 +19,10 @@ socket.on('orderCreated', (order) => {
     toast.success(`A new order was created (#${order.id} with ticket number : ${order.ticket_number})`)
     // console.log(' Order Created ')
 })
+
+socket.on('orderReady', (order) => {
+    toast.success(`Order #${order.id} is ready`)
+})
 </script>
 
 <template>

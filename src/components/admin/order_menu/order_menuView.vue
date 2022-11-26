@@ -1,11 +1,12 @@
 <script setup>
 import axios from 'axios';
-import { ref, defineEmits, defineProps } from 'vue';
+import { ref, defineEmits, defineProps, inject } from 'vue';
 import { useUserStore } from '@/stores/user';
 
 const props = defineProps(['order'])
 const emit = defineEmits(['viewOrderChange'])
 
+const socket = inject('socket')
 
 const storeUser = useUserStore();
 const order = ref(props.order);
@@ -15,11 +16,13 @@ const alert = ref({
     type: 'warning'
 });
 
+
 const api = ref(import.meta.env.VITE_API_URL);
 
 const order_menulist = () => {
     emit('viewOrderChange', false)
 };
+
 
 const orderUpdate = (thisOrder) => {
     axios.put(api.value + '/orderUpdate', {
@@ -36,6 +39,13 @@ const orderUpdate = (thisOrder) => {
                 type: 'success'
             }
             order.value = response.data.order;
+            console.log(order.value)
+            if(order.value.status == 'Ready'){
+                axios.get(api.value + '/costumerGetUser/'+ order.value.customer_id).then((res) => {
+                    socket.emit('orderReady', {order: order.value, userId: res.data.user.id})
+                })
+                
+            }
         })
         .catch(error => {
             console.log(error.response.data.message);
