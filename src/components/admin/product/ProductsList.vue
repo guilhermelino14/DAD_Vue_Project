@@ -21,7 +21,7 @@ const emit = defineEmits(['createProductChange','editProductChange','editingProd
 
 
 const productList = () => {
-    axios.get(import.meta.env.VITE_API_URL + '/product?page=' + page.value)
+    axios.get(import.meta.env.VITE_API_URL + '/products?page=' + page.value)
         .then(response => {
             products.value = response.data.data;
             maxPage.value = response.data.last_page;
@@ -42,7 +42,7 @@ const editProduct = (product) => {
 }
 
 const deleteProduct = (id) => {
-    axios.delete(import.meta.env.VITE_API_URL + '/product/' + id, {
+    axios.delete(import.meta.env.VITE_API_URL + '/products/' + id, {
             headers: {
               'Content-Type': "application/json",
               Authorization: "Bearer " + userStore.token,
@@ -86,7 +86,7 @@ const deleteProduct = (id) => {
         </thead>
         <tbody>
             <tr v-for="product in products" :key="product">
-                <td><v-img :src="api + '/product/photo/' + product.photo_url "></v-img></td>
+                <td><v-img :src="api + '/products/photo/' + product.photo_url "></v-img></td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.type }}</td>
                 <td>{{ product.description }}</td>

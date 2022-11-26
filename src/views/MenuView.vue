@@ -14,7 +14,7 @@ onMounted(() => {
 })
 
 const loadProducts = () => {
-  axios.get(import.meta.env.VITE_API_URL+'/product?page=' + page.value)
+  axios.get(import.meta.env.VITE_API_URL+'/products?page=' + page.value)
   .then(response => {
     products.value = response.data.data
     lastPage.value = response.data.last_page

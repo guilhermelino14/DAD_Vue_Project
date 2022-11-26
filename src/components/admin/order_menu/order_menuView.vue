@@ -142,7 +142,7 @@ const reloadOrder = () => {
         <v-card-text>
             <v-row>
                 <v-col md="3">
-                    <v-img :src="api + '/product/photo/' + order_item.product.photo_url" class="img_size_photo"></v-img>
+                    <v-img :src="api + '/products/photo/' + order_item.product.photo_url" class="img_size_photo"></v-img>
                 </v-col>
                 <v-col md="9">
                     <v-card-title class="mb-5">{{ order_item.product.name }} <span class="box"

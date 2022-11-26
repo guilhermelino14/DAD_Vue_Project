@@ -39,7 +39,7 @@ const editUser = (user) => {
 
 
 const deleteUser = (userID) => {
-    axios.delete(import.meta.env.VITE_API_URL + '/user/' + userID)
+    axios.delete(import.meta.env.VITE_API_URL + '/users/' + userID)
         .then(response => {
             userList();
         })

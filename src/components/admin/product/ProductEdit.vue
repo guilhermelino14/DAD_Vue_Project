@@ -19,7 +19,7 @@ const productList = () => {
 
 const createProductPost = () => {
     
-    axios.put(import.meta.env.VITE_API_URL + '/product/' + product.id, product,{
+    axios.put(import.meta.env.VITE_API_URL + '/products/' + product.id, product,{
             headers: {
               'Content-Type': "application/json",
               Authorization: "Bearer " + userStore.token,

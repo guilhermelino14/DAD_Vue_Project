@@ -61,7 +61,7 @@ onMounted(() => {
                 <template v-slot:activator="{ props }">
                     <v-btn color="primary" v-bind="props" icon>
                         <v-avatar>
-                            <v-img :src="api + '/user/photo/' + storeUser.user.photo_url" alt="John">
+                            <v-img :src="api + '/users/photo/' + storeUser.user.photo_url" alt="John">
                             </v-img>
                         </v-avatar>
                     </v-btn>

@@ -44,7 +44,7 @@ const paymentRoute = () => {
                         <tbody>
                             <tr v-for="item in storeCart.getCart" :key="item">
                                 <td>
-                                    <v-img :src="api + '/product/photo/' + item.photo_url"></v-img>
+                                    <v-img :src="api + '/products/photo/' + item.photo_url"></v-img>
                                 </td>
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.description }}</td>

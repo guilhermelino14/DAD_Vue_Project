@@ -48,7 +48,7 @@ const showOrderItems = (id) => {
                     <v-card-item v-for="item in order.order_items" >
                         <v-row>
                             <v-col md="3">
-                                <v-img :src="api+'/product/photo/' +item.product.photo_url " class="img_size_photo"></v-img>
+                                <v-img :src="api+'/products/photo/' +item.product.photo_url " class="img_size_photo"></v-img>
                             </v-col>
                             <v-col md="9">
                                 <v-card-title class="mb-5">{{item.product.name}}</v-card-title>

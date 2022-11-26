@@ -24,7 +24,7 @@ const user = ref({
 })
 
 const createUserPost = () => {
-    axios.post(import.meta.env.VITE_API_URL + '/user', user.value)
+    axios.post(import.meta.env.VITE_API_URL + '/users', user.value)
         .then(response => {
             console.log(response)
             userList()

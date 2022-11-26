@@ -22,7 +22,7 @@ const addToCart = (product) => {
       </div>
     </div> -->
   <v-card class="mx-auto" max-width="400">
-    <v-img class="align-end text-white" height="200" :src="api + '/product/photo/' + product.photo_url " cover>
+    <v-img class="align-end text-white" height="200" :src="api + '/products/photo/' + product.photo_url " cover>
       <!-- <v-card-title class="text-black">{{product.name}}</v-card-title> -->
     </v-img>
 
