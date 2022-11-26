@@ -16,7 +16,7 @@ const user_id = ref(0)
 onMounted(() => {
     if (storeUser.islogged) {
         user_id.value = storeUser.getUser.id
-        axios.get(import.meta.env.VITE_API_URL + '/customer/' + storeUser.user.id, {
+        axios.get(import.meta.env.VITE_API_URL + '/customers/' + storeUser.user.id, {
             headers: {
                 Authorization: 'Bearer ' + storeUser.user.token
             }

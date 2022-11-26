@@ -22,7 +22,7 @@ const product = ref({
 
 const createProductPost = () => {
     
-    axios.post(import.meta.env.VITE_API_URL + '/product', product.value,{
+    axios.post(import.meta.env.VITE_API_URL + '/products', product.value,{
             headers: {
               'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2),
               Authorization: "Bearer " + userStore.token,

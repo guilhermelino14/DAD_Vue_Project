@@ -70,7 +70,7 @@ const logout = () => {
       <div class="p-2 dropleft">
         <v-btn icon id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <v-avatar>
-            <v-img :src="api + '/user/photo/' + storeUser.user.photo_url" alt="John"></v-img>
+            <v-img :src="api + '/users/photo/' + storeUser.user.photo_url" alt="John"></v-img>
           </v-avatar>
         </v-btn>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

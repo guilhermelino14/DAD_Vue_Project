@@ -14,7 +14,7 @@ const userList = () => {
 
 
 const createUseredit = () => {
-    axios.put(import.meta.env.VITE_API_URL + '/user/' + user.id, user)
+    axios.put(import.meta.env.VITE_API_URL + '/users/' + user.id, user)
         .then(response => {
             alert.value = response.data.message
             //userList();
