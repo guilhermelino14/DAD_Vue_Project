@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { cartStore } from '@/stores/cart'
@@ -10,6 +10,7 @@ const storeCart = cartStore();
 
 const storeUser = useUserStore();
 
+const toast = inject("toast")
 
 const router = useRouter();
 
@@ -40,6 +41,7 @@ const AdminRoute = () => {
 const logout = () => {
   storeUser.logout();
   router.push('/');
+  toast.success('Logged out with success');
 }
 
 

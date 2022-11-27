@@ -8,6 +8,7 @@ const router = useRouter();
 const storeUser = useUserStore();
 
 const socket = inject("socket")
+const toast = inject("toast")
 
 let user = ref({
         email:'',
@@ -25,6 +26,7 @@ const login = async () => {
         storeUser.login(response.data.user)
         router.push('/')
         socket.emit('loggedIn', response.data.user)
+        toast.success('Logged in with success')
     })
     .catch(e => {
         error.value = e.response.data.error

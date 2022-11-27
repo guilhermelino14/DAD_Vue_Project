@@ -1,14 +1,16 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, inject } from 'vue';
 import { cartStore } from '@/stores/cart'
 
 
 const storeCart = cartStore();
 const props = defineProps(['product'])
 const api = import.meta.env.VITE_API_URL
+const toast = inject("toast")
 
 const addToCart = (product) => {
   storeCart.addToCart(product)
+  toast.success(`${product.name} added to cart`)
 }
 </script>
 <template>

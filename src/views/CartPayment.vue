@@ -6,6 +6,7 @@ import { cartStore } from '../stores/cart';
 import router from '../router';
 
 const socket = inject("socket")
+const toast = inject("toast")
 const storeUser = useUserStore();
 const storeCart = cartStore();
 
@@ -44,6 +45,7 @@ const createOrder = () => {
         .then(response => {
             storeCart.clearCart()
             socket.emit('orderCreated', response)
+            toast.success('Order created')
             if(user_id.value != 0){
                 router.push('/order-history')
                 

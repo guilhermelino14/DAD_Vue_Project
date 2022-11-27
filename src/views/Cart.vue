@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { cartStore } from '@/stores/cart'
 import { useRouter } from 'vue-router'
 
 const storeCart = cartStore();
 const router = useRouter();
+const toast = inject("toast")
 
 const api = ref(import.meta.env.VITE_API_URL);
 
@@ -14,6 +15,11 @@ const paymentRoute = () => {
     } else {
         router.push('/cart');
     }
+};
+
+const removeFromCart = (item) => {
+    storeCart.removeFromCart(item);
+    toast.success(`${item.name} removed from cart`);
 };
 </script>
 <template>
@@ -51,7 +57,7 @@ const paymentRoute = () => {
                                 <td>{{ item.price }}€</td>
                                 <td>
                                     <v-btn icon="mdi-delete" color="error" size="x-small"
-                                        @click="storeCart.removeFromCart(item)">
+                                        @click="removeFromCart(item)">
                                     </v-btn>
                                 </td>
 
