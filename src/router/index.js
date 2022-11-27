@@ -52,7 +52,6 @@ const verifyIfUserIsChefOrDeliver = (to, from, next) => {
     },
   };
   axios.get(import.meta.env.VITE_API_URL + '/userType', config).then((res) => {
-    console.log(res.data.type);
     if (res.data.type == 'EC' || res.data.type == 'ED' || res.data.type == 'EM') next();
     if (res.data.type == 'C') next('/');
     else next('/admin');
@@ -82,7 +81,6 @@ const isLoggedAndItsACostumer = (to, from, next) => {
     },
   };
   axios.get(import.meta.env.VITE_API_URL + '/userType', config).then((res) => {
-    console.log(res.data.type);
     if (res.data.type == 'C') next();
     else next('/');
   });

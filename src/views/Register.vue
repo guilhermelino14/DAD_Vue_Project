@@ -19,7 +19,6 @@ let error = ref('');
 const register = async () => {
     await axios.post(import.meta.env.VITE_API_URL+'/register', user.value)
     .then(response => {
-        console.log(response.data)
         router.push('/')
     })
     .catch(e => {

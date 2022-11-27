@@ -27,7 +27,6 @@ onMounted(() => {
 })
 
 socket.on('nonCostumerGetId', (socket) => {
-  console.log(storeUser.getSocketId);
   if(storeUser.getSocketId == null){
     storeUser.setSocketId(socket)
   }
@@ -39,7 +38,7 @@ socket.on('orderCreated', (order) => {
 })
 
 socket.on('orderReady', (order) => {
-    toast.success(`Order #${order.id} is ready`)
+    toast.success(`Order number :${order.id} | ticker number ${order.ticket_number} is ready`)
 })
 </script>
 

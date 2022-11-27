@@ -29,8 +29,7 @@ const createProductPost = () => {
             }
           })
         .then(response => {
-            console.log(response.data)
-            //productList()
+            productList()
         })
         .catch(error => {
             console.log(error)
