@@ -9,14 +9,17 @@ export const useUserStore = defineStore({
     state: () => ({
         user: useStorage('user',{}),
         token: useStorage('token',""),
-        islogged: useStorage('islogged',false)
+        islogged: useStorage('islogged',false),
+        socketId : useStorage('socketId',null)
     }),
     getters: {
         getToken: (state) => state.token,
         getUser: (state) => state.user,
+        getSocketId: (state) => state.socketId,
     },
     actions: {
         login(RequestUser) {
+            this.socketId = null
             this.user = RequestUser
             this.token = RequestUser.token
             this.islogged = true
@@ -38,7 +41,12 @@ export const useUserStore = defineStore({
             this.user = {}
             this.token = ""
             this.islogged = false
+            this.socketId = null
+        },
+        setSocketId(socketId) {
+            this.socketId = socketId
         }
+        
     }
 
 })

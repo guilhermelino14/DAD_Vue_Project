@@ -75,7 +75,6 @@ onMounted( () => {
 </template>
 
 <style scoped>
-<style>
       .card-header:first-child {
   border-radius: calc(1rem - 1px) calc(1rem - 1px) 0 0;
 }

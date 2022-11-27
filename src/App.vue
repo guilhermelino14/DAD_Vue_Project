@@ -12,7 +12,25 @@ const storeUser = useUserStore();
 const socket = inject('socket')
 
 onMounted(() => {
-    socket.emit('loggedIn', storeUser.getUser)
+  if(storeUser.getUser.id != null){
+    socket.emit('loggedIn', storeUser.getUser, null)
+    return
+  }
+  if(storeUser.getSocketId == null){
+    socket.emit('loggedIn', null, storeUser.getSocketId)
+    return
+  }
+  if(storeUser.getSocketId != null){
+    socket.emit('loggedIn', null, storeUser.getSocketId)
+    return
+  }
+})
+
+socket.on('nonCostumerGetId', (socket) => {
+  console.log(storeUser.getSocketId);
+  if(storeUser.getSocketId == null){
+    storeUser.setSocketId(socket)
+  }
 })
 
 socket.on('orderCreated', (order) => {

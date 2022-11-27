@@ -34,7 +34,8 @@ const createOrder = () => {
         value: storeCart.getTotal,
         payment_reference: payment_reference.value,
         payment_type: payment_type.value,
-        products : storeCart.getCart
+        products : storeCart.getCart,
+        custom : storeUser.getSocketId
     }, {
         headers: {
             Authorization: 'Bearer ' + storeUser.user.token
