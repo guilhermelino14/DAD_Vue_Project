@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted, inject, computed } from 'vue'
 import { useUserStore } from '../stores/user';
 import { cartStore } from '../stores/cart';
 import router from '../router';
@@ -34,7 +34,7 @@ onMounted(() => {
                     let coupon_number = 1
                     for (let i = 1; i <= response.data.points; i++) {
                         if (i % 10 == 0) {
-                            if(coupon.value.length+1 <= Math.trunc(storeCart.getTotal/5)){
+                            if (coupon.value.length + 1 <= Math.trunc(storeCart.getTotal / 5)) {
                                 coupon.value.push(coupon_number + ' - 5 € discount')
                                 coupon_number++
                             }
@@ -76,6 +76,15 @@ const createOrder = () => {
         });
 }
 
+const priceWithCoupon = computed(() => {
+    let price = storeCart.getTotal
+    couponSelected.value.forEach(element => {
+        price -= 5
+    });
+    //remove decimal part
+    return Math.trunc(price * 100) / 100 + '€ (' + couponSelected.value.length + ' coupon(s) used)'
+})
+
 </script>
 <template>
     <v-app>
@@ -98,9 +107,14 @@ const createOrder = () => {
                                 </v-combobox>
                             </div>
 
-                            <v-btn color="success" @click="createOrder" class="text-right">
-                                Buy
-                            </v-btn>
+                            <div class="row">
+                                <div class="col-12 col-md-9" style="align-self: center;">Total: {{ priceWithCoupon }}</div>
+                                <div class="col-12 col-md-3" style="    text-align-last: right;">
+                                    <v-btn color="success" @click="createOrder" class="text-right">
+                                        Buy
+                                    </v-btn>
+                                </div>
+                            </div>
                         </v-form>
                     </v-container>
                 </v-card>
