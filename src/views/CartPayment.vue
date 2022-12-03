@@ -10,8 +10,12 @@ const toast = inject("toast")
 const storeUser = useUserStore();
 const storeCart = cartStore();
 
+const couponSelected = ref([]);
+const coupon = ref([]);
+
 const payment_reference = ref('')
 const payment_type = ref('')
+const points = ref(0)
 const user_id = ref(0)
 
 onMounted(() => {
@@ -25,8 +29,21 @@ onMounted(() => {
             .then(response => {
                 payment_reference.value = response.data.default_payment_reference
                 payment_type.value = response.data.default_payment_type
+                points.value = response.data.points
+                if (storeCart.getTotal >= 5) {
+                    let coupon_number = 1
+                    for (let i = 1; i <= response.data.points; i++) {
+                        if (i % 10 == 0) {
+                            if(coupon.value.length+1 <= Math.trunc(storeCart.getTotal/5)){
+                                coupon.value.push(coupon_number + ' - 5 € discount')
+                                coupon_number++
+                            }
+                        }
+                    }
+                }
             })
     }
+
 })
 
 const createOrder = () => {
@@ -35,8 +52,9 @@ const createOrder = () => {
         value: storeCart.getTotal,
         payment_reference: payment_reference.value,
         payment_type: payment_type.value,
-        products : storeCart.getCart,
-        custom : storeUser.getSocketId
+        products: storeCart.getCart,
+        custom: storeUser.getSocketId,
+        points: couponSelected.value.length
     }, {
         headers: {
             Authorization: 'Bearer ' + storeUser.user.token
@@ -46,10 +64,10 @@ const createOrder = () => {
             storeCart.clearCart()
             socket.emit('orderCreated', response)
             toast.success('Order created')
-            if(user_id.value != 0){
+            if (user_id.value != 0) {
                 router.push('/order-history')
-                
-            }else{
+
+            } else {
                 router.push('/')
             }
         })
@@ -74,6 +92,11 @@ const createOrder = () => {
 
                             <v-select v-model="payment_type" :items="['VISA', 'PAYPAL', 'MBWAY']" item-title="item"
                                 item-value="item" label="Select" required></v-select>
+
+                            <div v-if="((user_id != 0) && points >= 10)">
+                                <v-combobox v-model="couponSelected" :items="coupon" label="Use points" multiple chips>
+                                </v-combobox>
+                            </div>
 
                             <v-btn color="success" @click="createOrder" class="text-right">
                                 Buy
