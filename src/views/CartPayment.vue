@@ -82,6 +82,9 @@ const priceWithCoupon = computed(() => {
         price -= 5
     });
     //remove decimal part
+    if(couponSelected.value.length == 0){
+        return Math.trunc(price * 100) / 100 + '€'
+    }
     return Math.trunc(price * 100) / 100 + '€ (' + couponSelected.value.length + ' coupon(s) used)'
 })
 
