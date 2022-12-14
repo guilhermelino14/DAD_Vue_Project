@@ -40,6 +40,7 @@ const AdminRoute = () => {
 
 const logout = () => {
   storeUser.logout();
+  cartStore.clearCart();
   router.push('/');
   toast.success('Logged out with success');
 }

@@ -17,6 +17,7 @@ const payment_reference = ref('')
 const payment_type = ref('')
 const points = ref(0)
 const user_id = ref(0)
+const couponShow = ref(true)
 
 onMounted(() => {
     if (storeUser.islogged) {
@@ -40,6 +41,8 @@ onMounted(() => {
                             }
                         }
                     }
+                }else{
+                    couponShow.value = false
                 }
             })
     }
@@ -106,7 +109,7 @@ const priceWithCoupon = computed(() => {
                                 item-value="item" label="Select" required></v-select>
 
                             <div v-if="((user_id != 0) && points >= 10)">
-                                <v-combobox v-model="couponSelected" :items="coupon" label="Use points" multiple chips>
+                                <v-combobox v-model="couponSelected" v-show="couponShow" :items="coupon" label="Use points" multiple chips>
                                 </v-combobox>
                             </div>
 
