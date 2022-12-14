@@ -13,7 +13,7 @@ onMounted(() => {
 });
 
 const userList = () => {
-    axios.get(import.meta.env.VITE_API_URL + '/user?page=' + page.value)
+    axios.get(import.meta.env.VITE_API_URL + '/users?page=' + page.value)
         .then(response => {
             users.value = response.data.data;
             maxPage.value = response.data.last_page;
