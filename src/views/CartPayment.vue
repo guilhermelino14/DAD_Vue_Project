@@ -19,6 +19,8 @@ const points = ref(0)
 const user_id = ref(0)
 const couponShow = ref(true)
 
+const olderRequest = ref(0)
+
 const itemsDropdown = ref(['MBWAY', 'PAYPAL', 'VISA']);
 
 onMounted(() => {
@@ -91,8 +93,8 @@ const createOrder = () => {
     //         toast.error('Invalid PAYPAL reference (must end with .pt or .com)')
     //         return
     //    }
-    
-
+    if (olderRequest.value == 0){
+        olderRequest.value = 1
     axios.post(import.meta.env.VITE_API_URL + '/orders', {
         customer_id: user_id.value,
         value: storeCart.getTotal,
@@ -120,6 +122,7 @@ const createOrder = () => {
         .catch(error => {
             console.log(error);
         });
+    }
 }
 
 const priceWithCoupon = computed(() => {
