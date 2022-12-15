@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, computed } from 'vue';
 const props = defineProps(['order'])
 
 const show = ref(0);
@@ -13,6 +13,11 @@ const showOrderItems = (id) => {
         show.value = 0;
     }
 };
+
+const convertCreatedAtToDate = (date) => {
+    let created = new Date(date);
+    return created.toLocaleDateString() + ' ' + created.toLocaleTimeString();
+};
 </script>
 <template>
     <v-card>
@@ -20,7 +25,7 @@ const showOrderItems = (id) => {
             <v-card-item>
                 <v-card-title class="mb-5">Order Number {{ order.id }}</v-card-title>
 
-                <v-card-subtitle>Order Date {{ order.created_at }}</v-card-subtitle>
+                <v-card-subtitle>Order Date {{ convertCreatedAtToDate(order.created_at) }}</v-card-subtitle>
             </v-card-item>
             <v-card-text>
                 Total: <span style="color: green;">{{ order.total_price }} €</span>

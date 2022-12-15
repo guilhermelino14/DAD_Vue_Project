@@ -11,6 +11,7 @@ import UserOrders from '@/views/UserOrders.vue'
 import Cart from '@/views/Cart.vue'
 import CartPayment from '@/views/CartPayment.vue'
 import PublicBoard from '@/views/PublicBoardView.vue'
+import Statistics from '@/views/Statistics.vue'
 
 import { useUserStore } from '@/stores/user.js';
 import { cartStore } from '@/stores/cart.js';
@@ -134,6 +135,12 @@ const router = createRouter({
       name: 'profile',
       component: Profile,
       beforeEnter: userNotLogged,
+    },
+    {
+      path: '/statistics',
+      name: 'statistics',
+      component: Statistics,
+      beforeEnter: isLoggedAndItsACostumer,
     },
     {
       path: '/order-history',
