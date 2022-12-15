@@ -132,7 +132,7 @@ const reloadOrder = () => {
                 </div>
             </div>
         </template>
-        <v-card-actions>
+        <v-card-actions v-if="storeUser.getUser.type == 'ED'">
             <v-spacer></v-spacer>
             <v-btn color="deep-purple lighten-2" text @click="orderUpdate(order)" v-if="order.status == 'Preparing'">
                 Order is ready
@@ -157,7 +157,7 @@ const reloadOrder = () => {
                 </v-col>
             </v-row>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions v-if="storeUser.getUser.type == 'EC'">
             <v-spacer></v-spacer>
             <v-btn color="deep-purple lighten-2" text @click="order_itemUpdate(order_item)"
                 v-if="order_item.status == 'Waiting'">

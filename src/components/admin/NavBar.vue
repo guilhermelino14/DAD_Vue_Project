@@ -37,6 +37,7 @@ onMounted(() => {
                 items.value[1].show = false
                 items.value[2].show = false
                 items.value[3].show = false
+                items.value[4].show = false
             }
         })
 
