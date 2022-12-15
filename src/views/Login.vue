@@ -23,6 +23,10 @@ const login = async () => {
     await axios.get(import.meta.env.VITE_API_URL+'/csrf-cookie', {withCredentials: true})
     await axios.post(import.meta.env.VITE_API_URL+'/login', user.value)
     .then(response => {
+        if(response.data.user.blocked == 1){
+            error.value = 'Your account is blocked'
+            return
+        }
         storeUser.login(response.data.user)
         router.push('/')
         socket.emit('loggedIn', response.data.user)
