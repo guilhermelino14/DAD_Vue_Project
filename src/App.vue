@@ -24,6 +24,7 @@ onMounted(() => {
     socket.emit('loggedIn', null, storeUser.getSocketId)
     return
   }
+  
 })
 
 socket.on('nonCostumerGetId', (socket) => {

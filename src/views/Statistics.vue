@@ -83,13 +83,16 @@ const statisticsItemsOrder = computed(() => {
 
 const averageTimeOfDeliveredOrders = computed(() => {
     let total = 0;
+    let count = 0;
     orders.value.forEach(order => {
+        count++;
         // get from order created_at and order updated_at and calculate the difference
         let created = new Date(order.created_at);
         let updated = new Date(order.updated_at);
         let diff = updated.getTime() - created.getTime();
         total += diff;
     });
+    total = total / count;
     return total;
 });
 
