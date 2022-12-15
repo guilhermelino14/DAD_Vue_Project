@@ -93,6 +93,7 @@ const createOrder = () => {
     //         toast.error('Invalid PAYPAL reference (must end with .pt or .com)')
     //         return
     //    }
+    
     if (olderRequest.value == 0){
         olderRequest.value = 1
     axios.post(import.meta.env.VITE_API_URL + '/orders', {
