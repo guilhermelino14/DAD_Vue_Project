@@ -69,7 +69,7 @@ const removeFromCart = (item) => {
                     {{storeCart.getTotal}} €
                 </v-row>
                 <v-row class="mt-5 justify-end">
-                    <v-btn color="primary" @click="paymentRoute">
+                    <v-btn color="primary" @click="paymentRoute" :disabled="storeCart.getCartCount <= 0">
                         Checkout
                     </v-btn>
                 </v-row>
