@@ -3,9 +3,30 @@ import { ref, onMounted, computed } from 'vue';
 import { useUserStore } from '@/stores/user';
 import axios from 'axios';
 import StatisticsCard from '../components/StatisticsCard.vue';
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
 
 const storeUser = useUserStore();
 const orders = ref([]);
+
+const totalSpent = ref(0);
+const totalSpentPoints = ref(0);
+const totalPointsEarned = ref(0);
+
+const load = ref(false)
+const chartData = ref({
+        labels: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+        datasets: [ { 
+            label: 'Dinheiro gasto por mes',
+            data: [] ,
+            backgroundColor: '#588CF5',
+        } ]
+      })
+const chartOptions = ref({
+        responsive: true
+      })
 
 onMounted(() => {
     axios.get(import.meta.env.VITE_API_URL + '/statistics/' + storeUser.user.id)
@@ -15,6 +36,20 @@ onMounted(() => {
         .catch(error => {
             console.log(error);
         });
+    axios.get(import.meta.env.VITE_API_URL + '/statistics/totalSpent/' + storeUser.user.id)
+        .then(response => {
+            totalSpent.value = response.data.totalSpent;
+            chartData.value.datasets[0].data = response.data.totalSpent12Mounths
+            load.value = true
+        })
+    axios.get(import.meta.env.VITE_API_URL + '/statistics/totalSpentPoints/' + storeUser.user.id)
+        .then(response => {
+            totalSpentPoints.value = response.data.totalSpentPoints;
+        })
+    axios.get(import.meta.env.VITE_API_URL + '/statistics/totalPointsEarned/' + storeUser.user.id)
+        .then(response => {
+            totalPointsEarned.value = response.data.totalPointsEarned;
+        })
 });
 
 const statisticsOrderDelivered = computed(() => {
@@ -40,7 +75,7 @@ const statisticsItemsOrder = computed(() => {
     let total = 0;
     orders.value.forEach(order => {
         order.order_items.forEach(item => {
-            total ++;
+            total++;
         });
     });
     return total;
@@ -88,10 +123,20 @@ const convertToHoursAndMinuts = () => {
                         <StatisticsCard title="Items Order" :value="statisticsItemsOrder"></StatisticsCard>
                     </v-col>
                     <v-col xs="12" sm="12" md="6">
-                        <StatisticsCard title="Average time of delivering" :value="convertToHoursAndMinuts()"></StatisticsCard>
+                        <StatisticsCard title="Average time of delivering" :value="convertToHoursAndMinuts()">
+                        </StatisticsCard>
+                    </v-col>
+                    <v-col xs="12" sm="12" md="6">
+                        <StatisticsCard title="Total gasto" :value="totalSpent + '€'"></StatisticsCard>
+                    </v-col>
+                    <v-col xs="12" sm="12" md="6">
+                        <StatisticsCard title="Total de pontos gastos" :value="totalSpentPoints"></StatisticsCard>
+                    </v-col>
+                    <v-col xs="12" sm="12" md="6">
+                        <StatisticsCard title="Pontos ganhos" :value="totalPointsEarned"></StatisticsCard>
                     </v-col>
                 </v-row>
-
+                <Bar id="my-chart-id" :options="chartOptions" :data="chartData" v-if="load" />
             </v-container>
         </v-main>
     </v-app>

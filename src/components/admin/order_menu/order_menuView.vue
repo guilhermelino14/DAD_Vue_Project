@@ -38,6 +38,8 @@ const orderUpdate = (thisOrder) => {
                 message: response.data.message,
                 type: 'success'
             }
+            
+            socket.emit('updateBoard', order.value.ticket_number, order.value.status)
             order.value = response.data.order;
             if (order.value.status == 'Ready') {
                 if (order.value.customer_id != null) {

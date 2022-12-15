@@ -1,8 +1,10 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, inject } from 'vue';
 import axios from 'axios';
 
 const orders = ref([]);
+const socket = inject('socket')
+const toast = inject('toast')
 
 onMounted(() => {
     orderList();
@@ -18,6 +20,10 @@ const orderList = () => {
         });
 };
 
+socket.on('updateBoard', (ticket_number, status) => {
+    orderList();
+    toast.success('Ticket ' + ticket_number + ' is ' + status);
+});
 
 </script>
 <template>
