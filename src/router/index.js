@@ -12,6 +12,7 @@ import Cart from '@/views/Cart.vue'
 import CartPayment from '@/views/CartPayment.vue'
 import PublicBoard from '@/views/PublicBoardView.vue'
 import Statistics from '@/views/Statistics.vue'
+import AdminStatistics from '@/views/admin/Statistics.vue'
 
 import { useUserStore } from '@/stores/user.js';
 import { cartStore } from '@/stores/cart.js';
@@ -179,6 +180,15 @@ const router = createRouter({
       path: '/admin/orders',
       name: 'adminOrders',
       component: AdminOrders,
+      beforeEnter: verifyIfUserIsMenager,
+      meta: {
+        hideNavbar: true,
+      }
+    },
+    {
+      path: '/admin/statistics',
+      name: 'adminStatistics',
+      component: AdminStatistics,
       beforeEnter: verifyIfUserIsMenager,
       meta: {
         hideNavbar: true,

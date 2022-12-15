@@ -16,6 +16,7 @@ const items = ref([
     { title: 'Users', icon: 'mdi-account-multiple', route: '/admin/users', name: 'adminUsers', show: true },
     { title: 'Products', icon: 'mdi-book', route: '/admin/products', name: 'adminProducts', show: true },
     { title: 'Orders', icon: 'mdi-glass-cocktail', route: '/admin/orders', name: 'adminOrders', show: true },
+    { title: 'Statistics', icon: 'mdi-chart-box-outline', route: '/admin/statistics', name: 'adminStatistics', show: true },
 ])
 
 const logout = () => {
