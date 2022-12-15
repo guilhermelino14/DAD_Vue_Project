@@ -65,13 +65,6 @@ onMounted(() => {
                             </v-img>
                         </v-avatar>
                     </v-btn>
-                    <v-badge color="red" :content="0" class="mr-3">
-                        <v-btn color="primary" icon >
-                            <v-avatar>
-                                <v-icon>mdi-bell</v-icon>
-                            </v-avatar>
-                        </v-btn>
-                    </v-badge>
 
                 </template>
                 <v-list>
