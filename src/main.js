@@ -17,6 +17,9 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+const apiDomain = import.meta.env.VITE_API_DOMAIN
+const wsConnection = import.meta.env.VITE_WS_CONNECTION
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -37,8 +40,8 @@ app.use(Toaster, {
 
 app.provide('toast', app.config.globalProperties.$toast);
 
-
-app.provide('socket', io("http://localhost:8080"))
+app.provide('serverUrl',`${apiDomain}/api`)
+app.provide('socket', io(wsConnection))
 app.use(createPinia())
 app.use(router)
 app.use(vuetify)
