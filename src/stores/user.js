@@ -34,7 +34,7 @@ export const useUserStore = defineStore({
             };
             axios.post(import.meta.env.VITE_API_URL+'/logout',[], config)
             .then(response => {
-                console.log(response)
+                //console.log(response)
             }).catch(error => {
                 console.log(error)
             })
