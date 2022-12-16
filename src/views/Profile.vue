@@ -16,6 +16,14 @@ onMounted( () => {
   })
 });
 
+const updateCustomer = () => {
+  customer.value.name = storeUser.user.name
+  axios.put(import.meta.env.VITE_API_URL+'/customers/'+storeUser.user.id, customer.value)
+  .then(response => {
+    console.log(response.data)
+  })
+}
+
 </script>
 
 <template>
@@ -33,39 +41,39 @@ onMounted( () => {
                 </div>
               </div>
               <div class="col-lg-8">
-                <form class="card mb-4">
+                <div class="card mb-4">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="mb-4">
                           <label class="form-label">Name</label>
-                          <input class="form-control" type="text" placeholder="Name" :value="storeUser.user.name">
+                          <input class="form-control" type="text" placeholder="Name" v-model="storeUser.user.name">
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="mb-4">
                           <label class="form-label">Email</label>
-                          <input class="form-control" type="email" placeholder="Email" :value="storeUser.user.email" disabled>
+                          <input class="form-control" type="email" placeholder="Email" v-model="storeUser.user.email" disabled>
                         </div>
                       </div>
                       <div class="col-md-6" v-if="!customer == ''">
                         <div class="mb-0">
                           <label class="form-label">Phone</label>
-                          <input class="form-control" type="text" placeholder="Phone" :value="customer.phone">
+                          <input class="form-control" type="text" placeholder="Phone" v-model="customer.phone">
                         </div>
                       </div>
                       <div class="col-md-6" v-if="!customer == ''">
                         <div class="mb-0">
                           <label class="form-label">NIF</label>
-                          <input class="form-control" type="text" placeholder="NIF" :value="customer.nif">
+                          <input class="form-control" type="text" placeholder="NIF" v-model="customer.nif">
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="card-footer text-end">
-                    <button class="btn btn-primary" type="submit">Update Profile</button>
+                    <button class="btn btn-primary" @click="updateCustomer" type="submit">Update Profile</button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </section>
