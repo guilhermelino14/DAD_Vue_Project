@@ -1,9 +1,10 @@
 <script setup>
-import { ref, onMounted} from 'vue'
+import { ref, onMounted, inject} from 'vue'
 import { useUserStore } from '../stores/user'
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 const storeUser = useUserStore();
+const toast = inject('toast')
 
 const customer = ref([]);
 
@@ -20,7 +21,10 @@ const updateCustomer = () => {
   customer.value.name = storeUser.user.name
   axios.put(import.meta.env.VITE_API_URL+'/customers/'+storeUser.user.id, customer.value)
   .then(response => {
-    console.log(response.data)
+    toast.success(response.data.message)
+
+  }).catch(error => {
+    toast.error(error.response.data.message)
   })
 }
 
