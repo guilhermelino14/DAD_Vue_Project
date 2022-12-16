@@ -83,7 +83,7 @@ const logout = () => {
           <a class="dropdown-item" v-if="storeUser.user.type != 'C'" @click="AdminRoute">Admin</a>
           <a class="dropdown-item" @click="profileRoute">Profile</a>
           <a class="dropdown-item" v-if="storeUser.user.type == 'C'" @click="OrderHistoryRoute">Order History</a>
-          <a class="dropdown-item" @click="statisticsRoute">Statistics</a>
+          <a class="dropdown-item" v-if="storeUser.user.type == 'C'" @click="statisticsRoute">Statistics</a>
           <a class="dropdown-item" @click="logout">Log Out</a>
         </div>
         <v-badge color="green" :content="storeCart.getCartCount">

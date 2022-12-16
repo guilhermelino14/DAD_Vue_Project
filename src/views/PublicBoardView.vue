@@ -22,6 +22,10 @@ const orderList = () => {
 
 socket.on('updateBoard', (ticket_number, status) => {
     orderList();
+    if(ticket_number == null){
+        toast.success('Ticket added');
+        return;
+    }
     toast.success('Ticket ' + ticket_number + ' is ' + status);
 });
 

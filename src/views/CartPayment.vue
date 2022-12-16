@@ -110,6 +110,7 @@ const createOrder = () => {
         }
     })
         .then(response => {
+            socket.emit('updateBoard')
             storeCart.clearCart()
             socket.emit('orderCreated', response)
             toast.success('Order created')
