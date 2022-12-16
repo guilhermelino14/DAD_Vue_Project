@@ -19,7 +19,7 @@ onMounted(() => {
         .then((res) => {
             totalEarnMounth.value = res.data.totalEarn
             
-            chartData.value.datasets[0].data = res.data.earnsInMounts
+            chartData.value.datasets[0].data = res.data.earnsInMounts.reverse()
             load.value = true
         })
     

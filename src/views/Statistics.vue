@@ -39,7 +39,7 @@ onMounted(() => {
     axios.get(import.meta.env.VITE_API_URL + '/statistics/totalSpent/' + storeUser.user.id)
         .then(response => {
             totalSpent.value = response.data.totalSpent;
-            chartData.value.datasets[0].data = response.data.totalSpent12Mounths
+            chartData.value.datasets[0].data = response.data.totalSpent12Mounths.reverse()
             load.value = true
         })
     axios.get(import.meta.env.VITE_API_URL + '/statistics/totalSpentPoints/' + storeUser.user.id)
