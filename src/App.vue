@@ -4,6 +4,7 @@ import {  RouterView, useRouter} from 'vue-router'
 import { useUserStore } from '@/stores/user';
 import NavBar from './components/NavBar.vue'
 import NavBarAdmin from './components/admin/NavBar.vue'
+import axios from 'axios'
 
 const toast = inject("toast")
 const storeUser = useUserStore();
@@ -12,6 +13,7 @@ const storeUser = useUserStore();
 const socket = inject('socket')
 
 onMounted(() => {
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + storeUser.getToken
   if(storeUser.getUser.id != null){
     socket.emit('loggedIn', storeUser.getUser, null)
     return
