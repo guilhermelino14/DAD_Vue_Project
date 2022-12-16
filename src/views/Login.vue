@@ -27,6 +27,7 @@ const login = async () => {
             error.value = 'Your account is blocked'
             return
         }
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.user.token
         storeUser.login(response.data.user)
         router.push('/')
         socket.emit('loggedIn', response.data.user)
